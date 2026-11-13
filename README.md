@@ -13,8 +13,8 @@ x86 boards with a USB modem). Shipped inside the base image.
 ## Layout
 | Path | What |
 |---|---|
-| `third_party/openbsd` | `if_umb.c/.h`, `mbim.h` (MBIM data + control, ISC); `umsm.c` (USB serial, ISC) |
-| `third_party/freebsd` | `u3g.c` (USB serial, BSD-2), `if_cdce.c/.h` (ECM/NCM fallback, BSD-4) |
+| `third_party/openbsd` | `if_umb.c/.h`, `mbim.h` (MBIM data + control, ISC); `umsm.c` (USB serial, ISC); `if_urndis.c/reg.h` + `sys/dev/rndis.h` (RNDIS, second fallback, ISC) |
+| `third_party/freebsd` | `u3g.c` (USB serial, BSD-2), `if_cdce.c/.h` (ECM/NCM, first fallback, BSD-4: credit line in `NOTICE`) |
 | `third_party/zephyr` | `modem_cellular.c` + `cellular_quectel_eg2x_g.c` + bindings (power state machine, init/CMUX scripts, Apache-2.0) |
 | `third_party/nuttx` | `pinephone_modem.c/.h` (PinePhone EG25-G power-on) + `a64_serial.c` (source of the UART3 pin lines), Apache-2.0 |
 | `port/` | `phe_modem_power.c/.h` (the kernel's power interface: NuttX on, Zephyr off), `pinephone_modem_pins.h` (verbatim NuttX pin lines, Apache-2.0), `phe_nuttx_kernel.h` + `kinc/` (the A64 kernel's NuttX environment), `build_arm.sh` |
