@@ -8,5 +8,5 @@ or the project LICENSE next to it):
   materials must acknowledge "This product includes software developed by Bill Paul.").
 - Zephyr modem_cellular.c, cellular_quectel_eg2x_g.c (Copyright (c) 2026 Embeint Inc) and bindings:
   Apache License 2.0 (third_party/zephyr/LICENSE).
-- Apache NuttX pinephone_modem.c/.h, a64_pio.h, a64_memorymap.h: Apache License 2.0
-  (third_party/nuttx/LICENSE, NOTICE).
+- Apache NuttX pinephone_modem.c/.h, a64_serial.c, and the pin lines copied into port/pinephone_modem_pins.h:
+  Apache License 2.0 (third_party/nuttx/LICENSE, NOTICE).
