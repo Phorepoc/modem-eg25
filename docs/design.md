@@ -1,23 +1,17 @@
-# Design
+# Design (user decision 2026-11-13: all permissive, ported as-is, in the image)
 
 ```
- Phone / SysAp / Messaging / Contacts      (platform, unchanged)
-   -> ETel -> phonetsy.tsy -> commontsy (CTSY, classic licensee interface)
-     -> licenseetsy.dll = pheltsy          (this repo, EPL)
-          router: CTSY IPC -> AT handler; completions via MessageManager()->Complete
-          atcore: framing, classification, parsers   (src/atcore)
-          MTelephonyAudioControl -> call audio route on/off
-     -> RBusDevComm (ECOMM.LDD)
-          Comm.A64 unit 3 = UART3 to the modem    (adaptation-a64, exists)
-          later: a USB "vendor bulk serial" PDD on the A64 USB1 host (EHCI), interfaces 2 (AT) and 3 (AT/PPP)
- Packet data: ETel Packet (etelpacketdata) + SPUD (pdplayer/umts) -> PPP NIF over a second AT
-   channel (27.010 CMUX via csy27010 on the UART, or USB interface 3); raw-IP/QMI not planned.
- Call audio: modem PCM -> A64 codec AIF2, routed codec-internally (no samples through Symbian).
+ Phone / Messaging / connection manager            (platform, EPL, unchanged)
+   ETel -> CTSY (classic licensee interface) -> pheltsy (ours, EPL)
+        back-end interface (MPheModemBackend): power, SIM, registration, calls, SMS, packet contexts
+          back end 1: AT + MBIM   -- AT over a USB serial port (u3g/umsm) or UART3 (fallback);
+                                     MBIM control over the umb device for data sessions
+          back end 2 (future):    libhybris + an Android vendor radio HAL (Qualcomm-class phones)
+   ESOCK/TCPIP -> NIF (from the 2010 raw-IP NIF, EPL) -> umb (MBIM, primary) | cdce (ECM/NCM, fallback)
+ Kernel: USB host = FreeBSD EHCI + aw_usbphy (adaptation-a64); class drivers umb / cdce / u3g|umsm run on a
+         small FreeBSD-USB compatibility layer (usb_request/usbd_transfer onto our HCD).
+ Power: NuttX pinephone_modem.c (on) + the Zephyr modem_cellular state machine (off / reset / wake).
+ Call audio: modem PCM -> A64 codec AIF2 (FreeBSD's sun8i/a33 codec has AIF1 only: open, see modem-port.md).
 ```
-
-Order:
-1. pheltsy moves into `src/pheltsy/`, its hand-written line parsing replaced by `atcore`.
-2. A scripted AT peer (same `atcore`) for QEMU/VirtualBox, so the x86 image runs the real TSY.
-3. Hold/swap/conference (`+CHLD`), DTMF (`+VTS`), emergency calls, `+CDS` status reports.
-4. Packet data over CMUX on UART3.
-5. USB transport once the A64 EHCI host exists.
+Order: power (NuttX) on the board hooks -> USB host (EHCI) -> u3g/umsm serial -> pheltsy over USB AT ->
+umb + NIF -> cdce fallback -> Zephyr off/wake.

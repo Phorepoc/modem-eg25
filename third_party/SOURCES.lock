@@ -1,0 +1,5 @@
+# project  base-url-with-commit  (every file below that dir is byte-identical to upstream at this commit)
+openbsd  https://raw.githubusercontent.com/openbsd/src/5238f50f352c1b3c3a1bd96feb049609db8e5144
+freebsd  https://raw.githubusercontent.com/freebsd/freebsd-src/043d6753ca7c1c1e3ffa09a9f953f0df50d3a22e
+zephyr   https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/f8da8ea370508f274685a25ff19dbe5a9ff54790
+nuttx    https://raw.githubusercontent.com/apache/nuttx/b66e7a65da9cf8609d62475785acdd793be34691

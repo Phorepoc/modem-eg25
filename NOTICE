@@ -1,0 +1,12 @@
+modem-eg25 contains third-party software, unmodified, under these licences (full texts in each file header
+or the project LICENSE next to it):
+
+- OpenBSD if_umb.c, if_umb.h, mbim.h: Copyright (c) 2016 genua mbH (ISC).
+- OpenBSD umsm.c: Copyright (c) 2008 Yojiro UO, (c) 2006 Jonathan Gray (ISC).
+- FreeBSD u3g.c: Copyright (c) 2008 AnyWi Technologies and others (ISC-style).
+- FreeBSD if_cdce.c, if_cdcereg.h: Copyright (c) 1997-2003 Bill Paul and others (BSD-4-Clause: advertising
+  materials must acknowledge "This product includes software developed by Bill Paul.").
+- Zephyr modem_cellular.c, cellular_quectel_eg2x_g.c (Copyright (c) 2026 Embeint Inc) and bindings:
+  Apache License 2.0 (third_party/zephyr/LICENSE).
+- Apache NuttX pinephone_modem.c/.h, a64_pio.h, a64_memorymap.h: Apache License 2.0
+  (third_party/nuttx/LICENSE, NOTICE).
