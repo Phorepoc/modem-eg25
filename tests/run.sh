@@ -1,4 +1,5 @@
 #!/bin/sh
+# SPDX-License-Identifier: EPL-1.0
 # Host test: g++ (Linux) builds src/atcore + tests/test_atcore.cpp and runs it.
 # From Windows: tar c src tests | docker run --rm -i gcc:14 sh -c 'mkdir w && cd w && tar x && sh tests/run.sh'
 set -e

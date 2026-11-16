@@ -1,4 +1,5 @@
 #!/bin/sh
+# SPDX-License-Identifier: EPL-1.0
 # Compile check of the modem power code for the A64 kernel, in the kernel's NuttX environment
 # (adaptation-a64/os/src/phorepoc-arm/a64/display/nuttx: its vendored a64_pio.c/.h + compat), with the same flags
 # link_ekern.sh uses for NuttX C sources. From Windows (no mounts; both repos as siblings):
