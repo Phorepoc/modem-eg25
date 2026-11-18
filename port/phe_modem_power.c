@@ -21,7 +21,15 @@
 
 int phe_modem_power_on(void)
 {
-  return pinephone_modem_init();
+  const int ret = pinephone_modem_init();
+
+  /* NuttX ends its power-on by driving W_DISABLE# (PH8) high, "to enable the modem". On this board the line is inverted
+   * on its way to the modem: Linux (the modem power driver's enable-gpios is ACTIVE_LOW) and eg25-manager (idle level low)
+   * keep it LOW for RF on, and HIGH is airplane mode: the modem then answers AT+CFUN? with 4 and refuses AT+CFUN=1
+   * (+CME ERROR: 3), registers on no network (+CREG/+CGREG/+CEREG: 2,0 = not registered, not searching). Measured on the
+   * phone with a SIM: PH8 high = no registration, PH8 low = registered within seconds. NuttX itself never needed the radio. */
+  a64_pio_write(MODEM_W_DISABLE, false);
+  return ret;
 }
 
 void phe_modem_power_off(void)
